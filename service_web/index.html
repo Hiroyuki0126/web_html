@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/0.20.0/roslib.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MIRS2403ホームページ</title>
+<link rel="stylesheet" href="./css/style4.css">
+</head>
+
+<body>
+  <div id="container">
+    <!-- 見出し -->
+    <header>
+      <!--<h1>
+        華
+        <span>-carry-</span>
+        蟻
+      </h1>
+      -->
+      <div class="logo-container">
+        <img src="./img/carry_rogo.png" alt="Logo">
+      </div>
+    </header>
+
+    <!-- メニューバー -->
+    <nav id="menubar">
+        <ul>
+            <li><a href="./index.html">椅子の配置指令</a></li>
+            <li><a href="https://www2.denshi.numazu-ct.ac.jp/mirsdoc2/mirs2403/">2403管理台帳</a></li>
+        </ul>
+    </nav>
+    <form id="seatForm">
+        <!-- 人数 -->
+        <h2>人数</h2>
+        <label for="numberOfPeople"><p>人数を入力してください</p></label>
+        <p>
+            <input type="number" id="numberOfPeople" min="1" placeholder="例: 10" required>
+        </p>
+
+        <!-- 配置パターン -->
+        <h2>配置パターン</h2>
+        <p>配置を選択してください</p>
+        <div class="center">
+            <input id="rect" type="radio" value="0" name="arrangementPattern">
+            <label for="rect">
+              <img src="./img/rect.png" width="200" height="120">
+              <p>長方形型</p>
+          </label>
+
+          <input id="fan" type="radio" value="1" name="arrangementPattern">
+          <label for="fan">
+              <img src="./img/fan.png" width="200" height="120">
+              <p>扇型</p>
+          </label>
+      </div>
+
+        <!-- 作業ボタン -->
+        <h2>設置作業開始</h2>
+        <div class="button-group">
+            <button type="button" class="start-button" onclick="startArrangement()">開始</button>
+        </div>
+    </form>
+  </div>
+
+  <p>接続状態: <span id="status" style="font-weight: bold;">N/A</span></p>
+
+  <script>
+    // ROSとの接続
+    const ros = new ROSLIB.Ros({
+      url: 'ws://localhost:9090'
+    });
+
+    ros.on("connection", () => {
+      document.getElementById("status").innerHTML = "接続成功";
+      console.log('ROSBridge WebSocket サーバーに接続しました。');
+    });
+
+    ros.on("error", (error) => {
+      document.getElementById("status").innerHTML = "接続エラー";
+      console.log('ROSBridge WebSocket サーバーへの接続エラー:', error);
+    });
+
+    ros.on("close", () => {
+      document.getElementById("status").innerHTML = "未接続";
+      console.log('ROSBridge WebSocket サーバーとの接続が閉じられました。');
+    });
+
+    // サービスの定義
+    const chairArrangementService = new ROSLIB.Service({
+      ros: ros,
+      name: '/chair_arrangement_service',
+      serviceType: 'service_interface/srv/ChairArrangement'
+    });
+
+    // 配置作業開始
+    function startArrangement() {
+      const numberOfPeople = parseInt(document.getElementById('numberOfPeople').value, 10);
+      const arrangementPattern = document.querySelector('input[name="arrangementPattern"]:checked');
+
+      if (isNaN(numberOfPeople) || !arrangementPattern) {
+        alert("人数と配置パターンを選択してください。");
+        return;
+      }
+
+      // サービスリクエストを構築
+      const request = new ROSLIB.ServiceRequest({
+        number_of_people: numberOfPeople,
+        arrangement_pattern: parseInt(arrangementPattern.value, 10)
+      });
+
+      // サービス呼び出し
+      chairArrangementService.callService(request, (result) => {
+        if (result.success) {
+          alert("配置指令が成功しました！\nメッセージ: " + result.message);
+        } else {
+          alert("配置指令が失敗しました。\nメッセージ: " + result.message);
+        }
+        console.log('サービスレスポンス:', result);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+/* 全体設定 */
+body {
+    font-family: 'Noto Serif JP', serif;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: #000000;
+    text-align: center;
+    font-size: 1rem; /* 基本フォントサイズ */
+}
+
+/* コンテナ */
+#container {
+    max-width: 90%;
+    margin: 5% auto; /* 余白を%指定 */
+    padding: 2%;
+    border: 0.2rem solid #000000;
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+/* ヘッダー部分 */
+header h1 {
+    font-size: 3.5rem; /* 相対的なフォントサイズ */
+    font-weight: bold;
+    color: #000000;
+    text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.1em;
+    margin-bottom: 2%;
+}
+
+header h1 span {
+    display: block;
+    font-size: 1.5rem;
+    color: #777777;
+    font-family: 'Lora', serif;
+    margin-top: -1rem;
+    letter-spacing: 0.3em;
+}
+
+/* 親コンテナのスタイル */
+.logo-container {
+    width: 50%; /* 親要素の幅を50%に設定 */
+    margin: 0 auto; /* 中央揃え */
+    text-align: center;
+}
+
+/* 画像のスタイル */
+.logo-container img {
+    width: 100%; /* 親要素の幅に対して100%で表示 */
+    height: auto; /* 高さはアスペクト比を維持 */
+    max-width: 400px; /* 最大サイズを設定（任意） */
+    display: block;
+    margin: 0 auto; /* 画像自体を中央揃え */
+}
+
+
+/* メニューバー */
+nav#menubar ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 2% 0;
+}
+
+nav#menubar ul li {
+    margin: 0 2%;
+}
+
+nav#menubar ul li a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border: 0.1rem solid #000000;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+nav#menubar ul li a:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+/* 入力フォーム */
+h2 {
+    font-size: 1.8rem;
+    border-bottom: 0.2rem solid #000000;
+    padding-bottom: 0.5rem;
+    margin-bottom: 2%;
+}
+
+form p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5%;
+}
+
+input[type="number"] {
+    width: 80%;
+    padding: 0.7rem;
+    font-size: 1.2rem;
+    border: 0.1rem solid #000000;
+    border-radius: 0.5rem;
+    background: #f9f9f9;
+    margin-bottom: 2%;
+}
+
+/* ラベル間の間隔を調整 */
+.center {
+    display: flex;
+    justify-content: center;
+    gap: 3%; /* ラベル間の間隔 */
+    margin: 2% 0;
+    flex-wrap: wrap; /* スマホで折り返し */
+}
+
+.center label {
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    border: 0.2rem solid transparent;
+    border-radius: 1rem;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    margin: 1%;
+    width: 40%;
+    max-width: 200px;
+}
+
+.center label img {
+    display: block;
+    /*border-radius: 1rem;*/
+    width: 100%;
+}
+
+/* ラジオボタンを非表示 */
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    border: 0.2rem solid #000000;
+    box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.3);
+}
+
+/* ボタン */
+.button-group button {
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    color: #ffffff;
+    background: #000000;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-group button:hover {
+    background: #333333;
+    transform: translateY(-0.3rem);
+}
+
+/* 接続状態 */
+#status {
+    font-size: 1.2rem;
+    color: #555555;
+    margin-top: 2%;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .center label {
+        width: 80%; /* 小さい画面では幅を広げる */
+    }
+
+    nav#menubar ul li a {
+        font-size: 1rem;
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .center label {
+        width: 90%;
+    }
+
+    .button-group button {
+        font-size: 1.2rem;
+        padding: 0.8rem 1.5rem;
+    }
+}

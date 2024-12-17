@@ -1,0 +1,88 @@
+/* タッチデバイス向けのスタイル調整 */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1a1a1a, #2e2e2e, #3f3f3f);
+    color: #ffffff;
+    font-size: 16px; /* 全体のフォントサイズを少し大きく */
+}
+
+#container {
+    width: 95%; /* 横幅を少し広げる */
+    max-width: 1200px;
+    margin: 30px auto; /* 上下の余白を小さく */
+    padding: 25px; /* パディングを広めに */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* タッチ操作しやすい要素のサイズ調整 */
+input[type="number"] {
+    width: 100%;
+    padding: 15px; /* 入力エリアを広げる */
+    font-size: 1.2em;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+}
+
+input[type="number"]:focus {
+    box-shadow: 0 0 15px #ffffff;
+}
+
+/* 配置パターンラベルのタッチ領域拡大 */
+.center label {
+    padding: 15px; /* タッチ領域を広げる */
+    border-radius: 12px; /* 柔らかい角丸を適用 */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+input[type="radio"]:checked + label {
+    border: 3px solid #ffffff; /* 境界線を太くしてタッチしたことがわかる */
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.7);
+    transform: scale(1.05); /* 少し拡大してフィードバックを強調 */
+}
+
+/* ボタンの調整 */
+button.start-button {
+    padding: 20px 35px; /* タッチエリアを広げる */
+    font-size: 1.6em; /* テキストを大きく */
+    border-radius: 60px; /* 丸みを強調 */
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button.start-button:hover {
+    transform: translateY(-3px); /* ホバー時の動きを少し軽く */
+}
+
+/* メディアクエリでのiPad最適化 */
+@media (max-width: 1024px) {
+    header h1 {
+        font-size: 2.5em; /* タイトルを少し小さく */
+    }
+
+    nav#menubar ul li a {
+        padding: 12px 20px; /* メニューアイテムの余白を調整 */
+        font-size: 1.2em; /* メニューのフォントサイズをやや大きく */
+    }
+
+    .center label img {
+        width: 80%; /* 配置パターン画像を縮小 */
+    }
+
+    .center {
+        flex-direction: column; /* 縦方向に並べる */
+        align-items: center;
+    }
+
+    button.start-button {
+        width: 90%; /* ボタンを広げる */
+        max-width: 400px;
+    }
+}
